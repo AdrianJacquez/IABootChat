@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="estilos.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <ul>
+        <li class="message bot">
+          <span>GPT</span>
+          <p>Esta es la respuesta del bot</p>
+        </li>
+
+        <li class="message user">
+          <span>TU</span>
+          <p>Esta el la consulta del usuario</p>
+        </li>
+
+        <li class="message user">
+          <span>TU</span>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam, id
+            nihil! Unde cum repellendus et
+          </p>
+        </li>
+      </ul>
+    </main>
+    <form>
+      <input placeholder="Preguuuntame" />
+      <button>Enviar</button>
+    </form>
+    <template id="template-message">
+      <li class="message">
+        <span></span>
+        <span></span>
+      </li>
+    </template>
+    <script src="script.js"></script>
+  </body>
+</html>
