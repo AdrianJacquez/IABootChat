@@ -4,21 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="estilos.css" />
-    <title>Document</title>
+    <title>Chat Example</title>
   </head>
   <body>
     <main>
-      <ul>
+      <ul id="messages">
         <li class="message bot">
-          <span>GPT</span>
-          <p>Esta es la respuesta del bot</p>
+          <span>TB</span>
+          <p>Esta es la respuesta del TuvaBot</p>
         </li>
-
         <li class="message user">
           <span>TU</span>
-          <p>Esta el la consulta del usuario</p>
+          <p>Esta es la consulta del usuario</p>
         </li>
-
         <li class="message user">
           <span>TU</span>
           <p>
@@ -28,16 +26,22 @@
         </li>
       </ul>
     </main>
-    <form>
-      <input placeholder="Preguuuntame" />
-      <button>Enviar</button>
+    <form id="messageForm">
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Pregúntame"
+        autocomplete="off"
+      />
+      <button disabled id="btnEnviar" type="submit">Enviar</button>
     </form>
+    <small>&rang;</small>
     <template id="template-message">
       <li class="message">
         <span></span>
-        <span></span>
+        <p></p>
       </li>
     </template>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>

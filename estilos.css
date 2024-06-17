@@ -1,9 +1,12 @@
 body {
-  background-color: rgb(234, 234, 234);
+  background-color: #faf0e6;
   font-family: system-ui;
   display: grid;
   place-content: center;
   height: 100dvh;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 main {
   width: 400px;
@@ -13,14 +16,19 @@ main {
   border: 1px solid #ccc;
   padding: 8px;
   overflow-y: auto;
-  background-color: white;
+  background-color: #faf3e0;
   border-radius: 5px;
   box-shadow: 3px 3px 5px;
+  scroll-behavior: smooth;
+}
+main::-webkit-scrollbar {
+  display: none;
 }
 ul {
   display: flex;
   flex-direction: column;
   list-style: none;
+  margin-bottom: 0;
   padding: 0;
 }
 .message {
@@ -32,7 +40,7 @@ ul {
   > span {
     width: 36px;
     height: 36px;
-    background-color: #eee;
+    background-color: #eeeeee;
     font-size: 12px;
     font-weight: 500;
     display: flex;
@@ -49,14 +57,15 @@ ul {
     align-items: flex-end;
     span,
     p {
-      background-color: rgb(194, 250, 224);
+      background-color: white;
     }
   }
   &.bot {
     align-self: flex-start;
     span,
     p {
-      background-color: rgb(191, 248, 251);
+      background-color: #000080;
+      color: white;
     }
   }
 }
@@ -69,17 +78,32 @@ form {
     padding: 8px;
     margin-right: 8px;
     border: 1px solid #ccc;
+    background-color: #faf3e0;
   }
   button {
-    background-color: #09f;
+    background-color: #000080;
     border: 0;
     color: white;
     border-radius: 6px;
     cursor: pointer;
     padding: 8px;
     transition: background 0.3s ease;
+    &[disabled] {
+      background-color: #ccc;
+      opacity: 0.6;
+    }
     &:hover {
-      background: rgb(1, 90, 150);
+      background: #1414cb;
     }
   }
+}
+small {
+  font-size: 10px;
+  color: #a3a3a3;
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 400px;
 }
