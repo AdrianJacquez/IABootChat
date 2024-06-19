@@ -12,8 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let messages = [];
 
   const SELECTED_MODEL = "gemma-2b-it-q4f32_1-MLC";
-
-  const engine = CreateMLCEngine(SELECTED_MODEL, {
+  const engine = await CreateMLCEngine(SELECTED_MODEL, {
     initProgressCallback: (info) => {
       console.log("initProgressCallback", info);
       $info.textContent = `${info.text}%`;
@@ -31,20 +30,56 @@ document.addEventListener("DOMContentLoaded", async () => {
       $input.value = ""; // Limpiar el input después de enviar el mensaje
     }
     addMessage(messageText, "user");
-    $button.setAttribute("disabled", true);
+    $button.setAttribute("disabled", "");
 
-    const reply = await engine.chat.completions.create({
+    const userMessage = {
+      role: "user",
+      content: messageText,
+    };
+
+    messages.push(userMessage);
+
+    const chunks = await engine.chat.completions.create({
       messages,
+      stream: true,
     });
-    console.log(reply);
+
+    let reply = "";
+
+    const $botMessage = addMessage("", "bot");
+
+    for await (const chunk of chunks) {
+      const choice = chunk.choices[0];
+      const content = choice?.delta?.content ?? "";
+      reply += content;
+      $botMessage.querySelector("p").textContent = reply;
+    }
+
+    $button.removeAttribute("disabled");
+    messages.push({
+      role: "assistant",
+      content: reply,
+    });
   });
 
   function addMessage(text, sender) {
     const clonedTemplate = $template.content.cloneNode(true);
     const $newMessage = clonedTemplate.querySelector(".message");
 
+    if (!$newMessage) {
+      console.error("Failed to clone the message template.");
+      return;
+    }
+
     const $who = $newMessage.querySelector("span");
     const $text = $newMessage.querySelector("p");
+
+    if (!$who || !$text) {
+      console.error(
+        "Failed to find required elements inside the message template."
+      );
+      return;
+    }
 
     $text.textContent = text;
     $who.textContent = sender === "bot" ? "TB" : "TU";
@@ -52,5 +87,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     $messages.appendChild($newMessage);
     $container.scrollTop = $container.scrollHeight;
+
+    return $newMessage; // Devuelve el nuevo mensaje creado para su manipulación posterior
   }
 });
