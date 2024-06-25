@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const content = choice?.delta?.content ?? "";
       reply += content;
       $botMessage.querySelector("p").textContent = reply;
+      $container.scrollTop = $container.scrollHeight;
     }
 
     $button.removeAttribute("disabled");
